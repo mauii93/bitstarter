@@ -1,15 +1,19 @@
 var fs = require('fs');
 
+var buffer = require('buffer');
+
 var express = require('express');
 
 var app = express.createServer(express.logger());
 
 var content = fs.readFileSync('index.html');
 
-var buffer = new buffer('content', "utf-8");
+var buf = new Buffer(content);
+
+var output = buf.toString("utf-8", 0, len);
 
 app.get('/', function(request, response) {
-  response.send(buffer);
+  response.send(output);
 });
 
 var port = process.env.PORT || 5000;
